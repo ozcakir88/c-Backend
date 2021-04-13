@@ -1,0 +1,25 @@
+﻿using Core.CrossCuttingConcers.Caching;
+using Core.CrossCuttingConcers.Caching.Microsoft;
+using Core.Utilities.Ioc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text;
+
+namespace Core.DependencyResolvers
+{
+    public class CoreModule : ICoreModule
+    {
+        public void    load(IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddMemoryCache();
+            serviceCollection.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            serviceCollection.AddSingleton<ICacheManager, MemoryCacheManager>();
+            serviceCollection.AddSingleton<Stopwatch>();
+        }
+
+
+    }
+}
